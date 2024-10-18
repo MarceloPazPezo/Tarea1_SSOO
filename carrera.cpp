@@ -66,7 +66,7 @@ void avanzar(long M, long nAuto, unsigned int semilla) {
 
         // Se muestra el avance del auto en la carrera utilizando un mutex, para evitar que varios hilos escriban en la consola al mismo tiempo.
         permiso.lock();
-        printf("Auto%ld avanza %ld metros (total: %ld metros)!\n", nAuto, nuevaDistancia, distanciaTotal);
+        printf("Auto%ld avanza %ld metros (total: %ld metros)\n", nAuto, nuevaDistancia, distanciaTotal);
         long detenerse = (numeroAleatorio(100, 500));
         // printf("Auto%ld se detiene: %ld\n", nAuto, detenerse);
         permiso.unlock();
@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
     // Creamos un hilo por cada auto, cada uno con
     for (long i = 0; i < N; ++i) {
         unsigned int semilla = time(NULL) + i;
-        tids.emplace_back(avanzar, M, i + 1, semilla); // Se utiliza emplace_back para evitar copias
+        tids.emplace_back(avanzar, M, i, semilla); // Se utiliza emplace_back para evitar copias
     }
 
     // Esperamos a que todos los hilos terminen
